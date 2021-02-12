@@ -1,0 +1,32 @@
+{
+  "name": "foodplace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node services/recipes/index.js &&  node services/proxy/index.js && node services/auth/index.js && node services/storage/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stefan020/foodplace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stefan020/foodplace/issues"
+  },
+  "homepage": "https://github.com/Stefan020/foodplace#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "express-http-proxy": "^1.6.2",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.15",
+    "node-input-validator": "^4.3.3"
+  }
+}
