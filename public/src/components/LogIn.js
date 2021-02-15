@@ -21,9 +21,9 @@ export const LogIn = (props) => {
              </div>
              <div className='login-form'>
                 <form className='log-in'>
-                <label for='email' className='label'>Email</label><br/>
+                <label className='label'>Email</label><br/>
                 <input type="email" id='email' className='input' placeholder='user@domain.com'></input><br/>
-                <label for='password' className='label'>Password</label><br/>
+                <label className='label'>Password</label><br/>
                 <input type="password" id='password' className='input' placeholder='******'></input>  <br/>
                 <input type="submit" value="Log In" className='submit-login'/>
                 </form>

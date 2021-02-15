@@ -6,7 +6,7 @@ const Home = () => {
     return (
       <div className="home">
         <GetByPubDate />
-        <GetByStars />
+        {/* <GetByStars /> */}
       </div>
     );
   }

@@ -1,4 +1,4 @@
-//inital state
+//  inital state
 const init = {
     account: []
 };
@@ -6,6 +6,8 @@ const init = {
 //constants
 const SET_ACCOUNT = 'SET_ACCOUNT';
 const SAVE_ACCOUNT = 'SAVE_ACCOUNT';
+const LOGIN_SUCCESS = 'LOFIN_SUCCESS';
+const LOGIN_FAIL = 'LOGIN_FAIL';
 
 //actions
 export const setAccounts = (account) => {
@@ -20,18 +22,24 @@ export const saveAccount = (account) => {
         payload: account
     };
 };
-
+// export const loginAccount = (account) => {
+//     return {
+//         type:LOGIN_ACCOUNT,
+//         payload: account
+//     }
+// }
 //reducer
 const reducer = (state = init, action) => {
     switch(action.type){
         case SAVE_ACCOUNT:
             return{
-                ...state, account: [...state.accounts, action.payload]
+                account: [...state.account, action.payload]
             }
         case SET_ACCOUNT:
             return{
                 ...state, recipe : action.payload
             }
+        // case LOGIN_SUCCESS:
         default:
             return state;
     }

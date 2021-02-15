@@ -1,11 +1,11 @@
 const { Validator } = require('node-input-validator');
 
 const registrationSchema = {
-    first_name: 'required',
-    last_name: 'required',
+    firstName: 'required',
+    lastName: 'required',
     email: 'required|email',
     password: 'required',
-    dob: 'required'
+    birthday: 'required'
 };
 
 const loginSchema = {
@@ -14,6 +14,7 @@ const loginSchema = {
 };
 
 const validate = async (data, schema) => {
+    console.log(data);
     let v = new Validator(data, schema);
     let e = await v.check();
     if(!e) {

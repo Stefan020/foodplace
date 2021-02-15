@@ -4,6 +4,7 @@ import recipes from './recipe';
 import accounts from './accounts';
 
 export default combineReducers({
-    recipes,accounts
+    recipes,
+    accounts
 });
 
