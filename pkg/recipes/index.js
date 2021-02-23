@@ -9,7 +9,7 @@ const Recipe = mongoose.model(
         num_people:Number,
         description:String,
         recipe:String,
-        image:{ data: Buffer, contentType: String },
+        image:String ,
         uid:String,
         pubDate:Date,
         starCount:Number,
@@ -33,8 +33,8 @@ const getByPubDate = async() => {
     return data;
 }
 
-const getOne = async (id) => {
-    let data = await Recipe.findOne({_id:id})
+const getOne = async (rid) => {
+    let data = await Recipe.findOne({_id:rid})
     return data;
 };
 
@@ -55,7 +55,7 @@ const updateStar = async( rid, recipeData) => {
 };
 
 const getByStars = async () => {
-    let data = await Recipe.find({}).sort({starCount:-1})
+    let data = await Recipe.find({}).sort({starCount:-1}).limit(6)
     return data;
 }
 

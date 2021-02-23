@@ -5,47 +5,48 @@ import ROUTES from '../constants/routes';
 import '../assets/Navbar.css';
 import logo from '../assets/images/logo_color.svg';
 
+import {authentication,logOut} from '../redux/ducks/auth';
 
-export const Navbar = () => {
+import {useHistory} from 'react-router-dom';
+
+
+export const Navbar = (logout) => {
+    
     return(
+        
         <div className='navbar'>
+            <Link to={ROUTES.ROOT}><img src={logo} alt='logo' className='logo'></img></Link>
             <ul className='nav'>
-            <Link to={ROUTES.ROOT}>
-                    <li className='mynav'>
-                    <img src={logo} alt='logo' className='logo'></img>
-                    </li></Link>
-                    <li className='mynav'> 
+                    <li className='nav-li'> 
                         <Link to={ROUTES.BREAKFAST} className='nav-cat'>breakfast</Link>
                     </li>
-                    <div className='tocka'></div>
-                    <li className='mynav'>
+                    <li className='nav-li'>
                         <Link to={ROUTES.BRUNCH} className='nav-cat'>brunch</Link>
                     </li>
-                    <div className='tocka'></div>
-                    <li className='mynav'>
+                    <li className='nav-li'>
                         <Link to={ROUTES.LUNCH} className='nav-cat'>lunch</Link>
                     </li>
-                    <div className='tocka'></div>
-                    <li className='mynav'>
+                    <li className='nav-li'>
                         <Link to={ROUTES.DINNER} className='nav-cat'>dinner</Link>
-                    </li>                 
-                    <li className='mynav'>
-                    <Link to={ROUTES.LOGIN}>
-                         <button className='loginb'>LOG IN</button>
+                    </li>     
+                </ul>
+                <div className='nav-btn'>
+                <Link to={ROUTES.LOGIN}>
+                         <button className='loginbtn'>LOG IN</button>
                      </Link>
-                    </li>
-                    <li className='mynav'>
-                        <p className='or'>or</p>
-                    </li>
-                    <li className='mynav'>
-                        <Link to={ROUTES.CREATE_ACCOUNT}>
+                     <p className='or'>or</p>
+                     <Link to={ROUTES.CREATE_ACCOUNT}>
                         <button className='createbtn'> CREATE ACCOUNT</button>
                         </Link>
-                    </li>
-                </ul>
+                         {/* <div className='toggleTwo' id='toggleTwo'>
+                        <ul className='profileNav'>
+                            <li>my recipes</li>
+                            <li><Link to={ROUTES.PROFILE}>my profile</Link></li>
+                            <li><Link to={ROUTES.ROOT} onClick={(e)=>e.logout}>log out</Link></li>
+                        </ul>
+                        </div>  */}
+                        </div>
         </div>
     )
 }
-{/* <Link to={ROUTES.CREATE_ACCOUNT} className="link-item">
-                        <button className="create-acc-btn">CREATE ACCOUNT</button>
-                    </Link> */}
+

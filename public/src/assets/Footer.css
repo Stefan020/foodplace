@@ -1,24 +1,64 @@
 .footer{
-    top: 900px;
-    left: 0px;
-    width: 1920px;
-    height: 180px;
-    background: var(--darkgrey) 0% 0% no-repeat padding-box;
-    background: #626262 0% 0% no-repeat padding-box;
-    opacity: 1;
-    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1250px;
+    margin: 0 auto;
+    height: 150px;
 }
-.design-list{
+
+.logo-white{
+    /* margin-left: 120px;
+    margin-top: 30px; */
+}
+
+.categories-footer{
     display: inline-flex;
-    
+    /* margin-left: 30px;
+    margin-top: 20px; */
+    padding-left: 5px;
+    padding-right: 10px;
+    top: 982px;
+    left: 770px;
+    width: 381px;
+    height: 20px;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) 15px/20px var(--unnamed-font-family-roboto);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--white);
+    text-align: left;
+    font: normal normal bold 15px/20px Roboto;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    opacity: 1;
 }
-.footerlogo{
-    width: 113px;
-    height: 37px;
-    margin-top: 100px;
-    margin-left: 250px;
-    float: left;
+
+.circlefooter{
+    border-radius: 50%;
+    top: 989px;
+    left: 870px;
+    width: 8px;
+    height: 8px;
+    background: var(--white) 0% 0% no-repeat padding-box;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    opacity: 1;
+    margin-right: 13px;
+    margin-left: 13px;
+    margin-top: 6px;
 }
-.footer-category{
-    display: inline;
+
+.copyright{
+    /* top: 971px;
+    left: 1473px; */
+    width: 115px;
+    height: 38px;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-roboto);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--white);
+    text-align: right;
+    font: normal normal normal 14px/19px Roboto;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    /* margin-top: 20px; */
 }

@@ -39,7 +39,7 @@ const save = async (req,res) => {
 
 const getOne = async (req,res) => {
     try{
-        let data = await recipeModel.getOne({_id:req.params.id});
+        let data = await recipeModel.getOne({_id:req.params.rid});
         return res.status(200).send(data);
     }catch(error){
         console.log(error);
@@ -83,6 +83,7 @@ const starOne = async (req,res) => {
         let recipe = await recipeModel.getOne({_id:id})
         let starRecipe = await recipeModel.updateStar(id,{starCount:recipe.starCount + 1})
         return res.status(200).send(starRecipe);
+        
     } catch (error) {
         console.log(error);
         return res.status(404).send('Internal Server Error');

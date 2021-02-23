@@ -1,72 +1,56 @@
-//inital state
+import useStar from "../../components/StarHook";
+
 const init = {
-    recipe: []
+    recipes: [],
+    stars:[],
+    error:""
 };
 
-//constants
-const SET_RECIPES = 'SET_RECIPE';
-const SAVE_RECIPE = 'SAVE_RECIPE';
- 
-//actions
-export const setRecipes = (recipes) => {
+const FETCH_RECIPES_SUCCESS = 'FETCH_RECIPES_SUCCESS';
+const FETCH_RECIPES_FAIL = 'FETCH_RECIPES_FAIL';
+const STAR_RECIPE = 'STAR_RECIPE';
+
+export const fetchRecipesSuccess = (recipes) => {
     return {
-        type:SET_RECIPES,
-        payload: recipes
-    };
+        type:FETCH_RECIPES_SUCCESS,
+        payload:recipes
+    }
 };
 
-export const saveRecipe = (recipe) => {
+export const fetchRecipesFail = (error) => {
     return {
-        type:SAVE_RECIPE,
-        payload: recipe
-    };
+        type:FETCH_RECIPES_FAIL,
+        payload:error
+    }
 };
 
-//reducer
-const reducer = (state = init, action) => {
+export const starRecipe =(recipes) => {
+    return {
+        type:STAR_RECIPE,
+        payload:recipes
+    }
+}
+
+const reducer = (state=init, action) => {
     switch(action.type){
-        case SET_RECIPES:
-            return{
-                ...state, recipes: action.payload
+        case FETCH_RECIPES_SUCCESS:
+            return {
+                ...state,
+                recipes:action.payload
             }
-        case SAVE_RECIPE:
+        case FETCH_RECIPES_FAIL:
+            return {
+                ...state,
+                error:action.payload
+            }
+        case STAR_RECIPE:
             return{
-                ...state, recipes: [...state.recipes, action.payload]
-            }        
+                ...state,
+                recipes:action.payload
+            }
         default:
-            return state;    
-
-    };
+            return state;
+    }
 };
 
 export default reducer;
-// import * as api from '../../api/index';
-// //initial state
-// const init = {
-//         recipe: []
-//     };
-
-// //constants
-// const FETCH_NEW_RECIPES = 'FETCH_NEW_RECIPES'
-
-// //actions
-// export const getByPubDate = () => async (dispatch) => {
-//     try {
-//         const {data} = await api.fetchNewRecipes();
-//         dispatch({type:FETCH_NEW_RECIPES, payload:data});
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// };
-
-// //reducer
-// const reducer = (state=init,action) => {
-//     switch(action.type) {
-//         case FETCH_NEW_RECIPES:
-//             return action.payload
-//             default:
-//                 return state;
-//     };
-// };
-
-// export default reducer;

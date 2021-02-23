@@ -31,7 +31,6 @@ api.use(function (err, req, res, next) {
     }
 });
 api.get('/api/v1/recipe/most-stared', recipe.getByStars);
-api.get('/api/v1/recipe/most-stared', recipe.getByStars);
 api.get('/api/v1/recipe/category/:cat', recipe.getByCategory);
 api.get('/api/v1/recipe/pub-date', recipe.getByPubDate);
 api.get('/api/v1/recipe/:id', recipe.getOne);

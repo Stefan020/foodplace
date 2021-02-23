@@ -8,6 +8,8 @@ const User = mongoose.model(
         email:String,
         birthday:Date,
         password:String,
+        image:String,
+        active:Boolean
     },
     'users'
 );
@@ -23,8 +25,8 @@ const getOneByEmail = async (email) => {
     return data;
 };
 
-const getOne = async (id) => {
-    let data = await User.findOne({_id:id});
+const getOne = async (uid) => {
+    let data = await User.findOne({_id:uid});
     return data;
 };
 
@@ -34,9 +36,15 @@ const getOneForLogin = async (email) => {
     return data;
 };
 
+const updateUser = async(uid) => {
+    let data = await User.updateOne({_id: uid}, userData);
+    return data.nModified !== 0;
+}
+
 module.exports = {
     save,
     getOne,
     getOneByEmail,
-    getOneForLogin
+    getOneForLogin,
+    updateUser
 };

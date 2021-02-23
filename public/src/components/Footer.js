@@ -3,36 +3,27 @@ import footerlogo from '../assets/images/logo_white.svg';
 
 import '../assets/Footer.css';
 
-export const Footer = () => {
-    return(
-        <div className='footer'>
-            <div className='design-list'>
-            <ul>
-                <li>
-             <img src={footerlogo} alt='logo' className='footerlogo'></img>
-             </li>
-             <div className='footer-category'>
-                <li>
-                    breakfast
-                </li>
-                <div className='krug'></div>
-                <li>
-                    breakfast
-                </li>
-                <div className='krug'></div>
-                <li>
-                    breakfast
-                </li>
-                <div className='krug'></div>
-                <li>
-                    breakfast
-                </li>
-                </div>
-            </ul>
+const Footer = () => {
+    return (
+        <div className="footer">
+            <div className="logo-white">
+                <img src={footerlogo} alt="" />
+            </div>
+            <div className="categories-footer">
+                <span>Breakfast</span>
+                <div className="circlefooter"></div>
+                <span>Brunch</span>
+                <div className="circlefooter"></div>
+                <span>Lunch</span>
+                <div className="circlefooter"></div>
+                <span>Dinner</span>
+            </div>
+            <div className="copyright">
+                <span>Baby's Food Place</span> <br />
+                <span>copyright © 2021</span>
+            </div>
         </div>
-       
-        </div>
-    )
+    );
 }
 
 export default Footer;

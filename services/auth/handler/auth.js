@@ -32,7 +32,9 @@ const create = async (req, res) => {
 };
 
 const login = async (req, res) => {
+    console.log(req.body)
     try {
+        
         await usersValidator.validate(req.body, usersValidator.loginSchema);
     } catch (err) {
         console.log(err);
@@ -53,6 +55,7 @@ const login = async (req, res) => {
             };
             let key = cfg.get('security').jwt_key;
             let token = jwt.sign(payload, key);
+            console.log(token);
             return res.status(200).send({jwt: token});
         }
         return res.status(401).send('Unauthorized');
@@ -62,7 +65,20 @@ const login = async (req, res) => {
     }
 };
 
+const getUser = async(req, res) => {
+    const uid = jwt.parse(req.params.token)
+    await console.log(rame, uid, req.params.token);
+    try {
+        let data = await usersModel.getOne({_id:req.params.uid})
+        return res.status(200).send(data);
+    } catch (error) {
+        console.log(error);
+        return res.status(404).send('Internal Server Error');
+    }
+}
+
 module.exports = {
     create,
-    login
+    login,
+    getUser
 };
