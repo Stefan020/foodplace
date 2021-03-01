@@ -7,6 +7,8 @@ import Home from './components/Home';
 import {LogIn} from './components/LogIn';
 import Footer from './components/Footer';
 import {MyProfile} from './components/MyProfile';
+import {MyRecipes} from './components/MyRecipes';
+import {AddRecipe} from './components/AddRecipe';
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
             <Route path='/create-account' component={CreateAccount} />
             <Route exact path='/login' component={LogIn} />
             <Route exact path='/my-profile' component={MyProfile} />
+            <Route exact path='/my-recipes' component={MyRecipes} />
+            <Route exact path='/add-recipe' component={AddRecipe} />
           </Switch>
           </div>
         </div>

@@ -104,6 +104,8 @@ const reducer = (state=init,action) => {
                 ...state,
                 isAuthenticated:true,
                 token:payload.jwt
+                // user: tuka raboti!
+                
             }
         case LOGIN_FAILED:
         case LOGOUT_USER:

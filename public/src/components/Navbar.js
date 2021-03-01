@@ -9,6 +9,10 @@ import {authentication,logOut} from '../redux/ducks/auth';
 
 import {useHistory} from 'react-router-dom';
 
+// if(localStorage.getItem('token')){
+//     document.getElementById('toggleOne').style='none';
+//     document.getElementById('toggleTwo').style='display:flex';
+// }
 
 export const Navbar = (logout) => {
     
@@ -30,7 +34,7 @@ export const Navbar = (logout) => {
                         <Link to={ROUTES.DINNER} className='nav-cat'>dinner</Link>
                     </li>     
                 </ul>
-                <div className='nav-btn'>
+                <div className='nav-btn' id='toggleOne'>
                 <Link to={ROUTES.LOGIN}>
                          <button className='loginbtn'>LOG IN</button>
                      </Link>
@@ -38,13 +42,13 @@ export const Navbar = (logout) => {
                      <Link to={ROUTES.CREATE_ACCOUNT}>
                         <button className='createbtn'> CREATE ACCOUNT</button>
                         </Link>
-                         {/* <div className='toggleTwo' id='toggleTwo'>
+                         <div className='toggleTwo' id='toggleTwo'>
                         <ul className='profileNav'>
-                            <li>my recipes</li>
+                            <li><Link to={ROUTES.MY_RECIPES}>my recipes</Link></li>
                             <li><Link to={ROUTES.PROFILE}>my profile</Link></li>
                             <li><Link to={ROUTES.ROOT} onClick={(e)=>e.logout}>log out</Link></li>
                         </ul>
-                        </div>  */}
+                        </div> 
                         </div>
         </div>
     )

@@ -7,6 +7,7 @@
     display: flex;
     margin: 0 auto;
     text-align: center;
+    
 }
 
 .logo{
@@ -39,9 +40,6 @@
     left: -12px;
 }
 
-.nav-li:first-of-type::before{
-    display: none;
-}
 
 .nav-cat{
     text-decoration: none;
@@ -117,4 +115,9 @@
     text-transform: uppercase;
     opacity: 1;
     border: none;
+}
+
+.toggleTwo{
+    /* display: none; */
+
 }

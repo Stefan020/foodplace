@@ -11,9 +11,11 @@ import {useDispatch} from 'react-redux';
 
 
 const Card = ({ recipes }) => {
+    const [recipe,setRecipe] = useState({
+        starCount:""
+    })
     const dispatch = useDispatch();
  const starOne = (_id) => {
-    
         fetch(`http://localhost:10002/api/v1/recipe/${_id}/star`,{
             method:"PUT",
             headers:{
@@ -24,8 +26,8 @@ const Card = ({ recipes }) => {
             })
         }).then(res=>res.json())
         .then(result=>{
-            console.log(result) 
-        })
+            setRecipe(result)
+        }).then(dispatch =>dispatch(recipe))
         .catch(err=>{
             console.log(err)
         })
@@ -47,7 +49,7 @@ const Card = ({ recipes }) => {
                         <div className="icons-left">
                             <span><img src={icon_time} alt="" /></span><span className="time">{recipe.prep_time} min</span>
                             <span><img src={icon_plate} alt="" /></span><span className="plate">{recipe.num_people} persons</span>
-                            <span  onClick={()=>{dispatch(starOne(recipe._id))}}><img src={icon_star} alt="" /></span><span className="star">{recipe.starCount}</span>
+                            <span  onClick={()=>{starOne(recipe._id)}}><img src={icon_star} alt="" /></span><span className="star">{recipe.starCount}</span>
                         </div>
                         <div className="icon-right">
                             <span><Link to={`/recipes/${recipe._id}`} className="card-link"><img src={icon_arrows_white} alt="" /></Link></span>
