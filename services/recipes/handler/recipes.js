@@ -38,6 +38,7 @@ const save = async (req,res) => {
 // }
 
 const getOne = async (req,res) => {
+    // console.log(req.params)
     try{
         let data = await recipeModel.getOne({_id:req.params.rid});
         return res.status(200).send(data);

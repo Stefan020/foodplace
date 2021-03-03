@@ -20,7 +20,7 @@ api.use(jwt({
     path: [
         { url: /\/api\/v1\/recipe\/.*\/star/, methods: ['PUT'] },
         { url: /\/api\/v1\/recipe\/category\/.*\/cat/, method: ['GET']},
-        { url: /\/api\/v1\/recipe\/.*\/id/, method: ['GET']},
+        { url: /\/api\/v1\/recipe\/.*/, method: ['GET']},
         { url: '/api/v1/recipe/most-stared', method: ['GET']},
         { url: '/api/v1/recipe/pub-date', methods: ['GET'] }
     ]
@@ -33,7 +33,7 @@ api.use(function (err, req, res, next) {
 api.get('/api/v1/recipe/most-stared', recipe.getByStars);
 api.get('/api/v1/recipe/category/:cat', recipe.getByCategory);
 api.get('/api/v1/recipe/pub-date', recipe.getByPubDate);
-api.get('/api/v1/recipe/:id', recipe.getOne);
+api.get('/api/v1/recipe/:rid', recipe.getOne);
 api.put('/api/v1/recipe/:rid/star', recipe.starOne);
 api.get('/api/v1/recipe/myrecipes/:uid', recipe.getByUserId);
 api.post('/api/v1/recipe/newrecipe', recipe.save);

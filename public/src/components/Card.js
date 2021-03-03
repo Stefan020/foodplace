@@ -3,34 +3,42 @@ import icon_time from '../assets/images/icon_time.svg';
 import icon_plate from '../assets/images/icon_plate.svg';
 import icon_star from '../assets/images/icon_star.svg';
 import icon_arrows_white from '../assets/images/icon_arrows_white.svg';
-import {Link} from 'react-router-dom'
 import '../assets/Card.css';
 import {starRecipe} from '../redux/ducks/recipe'; 
 import {useStar} from './StarHook';
 import {useDispatch} from 'react-redux';
+import PopUp from './PopUp';
 
 
 const Card = ({ recipes }) => {
-    const [recipe,setRecipe] = useState({
-        starCount:""
-    })
+    const [recipe,setRecipe] = useState(recipes)
+    const [popupData, setPopupData] = useState({});
     const dispatch = useDispatch();
  const starOne = (_id) => {
         fetch(`http://localhost:10002/api/v1/recipe/${_id}/star`,{
             method:"PUT",
             headers:{
                 "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                rid:_id
-            })
+            }
         }).then(res=>res.json())
         .then(result=>{
-            setRecipe(result)
-        }).then(dispatch =>dispatch(recipe))
+            const newRecipe = [...recipe];
+            if(result){
+                newRecipe.forEach(element => {
+                    if(element._id === _id) element.starCount ++;
+                });
+            }
+            setRecipe(newRecipe)
+        })
         .catch(err=>{
             console.log(err)
         })
+    }
+
+    const onClickPopUp = (rid) => {
+        const popupData = recipe.filter((item)=> item._id === rid)[0];
+        popupData.triggered = true;
+        setPopupData(popupData)
     }
     
     return (
@@ -52,8 +60,9 @@ const Card = ({ recipes }) => {
                             <span  onClick={()=>{starOne(recipe._id)}}><img src={icon_star} alt="" /></span><span className="star">{recipe.starCount}</span>
                         </div>
                         <div className="icon-right">
-                            <span><Link to={`/recipes/${recipe._id}`} className="card-link"><img src={icon_arrows_white} alt="" /></Link></span>
+                            <span onClick={()=> onClickPopUp(recipe._id)}><img src={icon_arrows_white} alt="" /></span>
                         </div>
+                        <PopUp setTriger={setPopupData} data={popupData} />
                     </div>
                     </div>
                     </div>  

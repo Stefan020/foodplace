@@ -132,3 +132,8 @@
 .icon-right span{
     margin-left: 8px;
 }
+
+.popup-btn{
+    border: none;
+    opacity: 1;
+}

@@ -15,7 +15,8 @@ export const MyProfile = () => {
         repeatPassword:"",
         loggedIn: false,
     })
-
+    // const token = localStorage.getItem('token');
+    // if(!token) //redicrt(/main)
     const profileParams = fetchUserRequest(localStorage.getItem('token'))
 
 
@@ -27,6 +28,7 @@ export const MyProfile = () => {
         <div className='profile-cont'>
             <div className='avatar'>
             <img src={avatar} className='image-avatar'></img>
+            <input type='file'></input>
             <button className='avatar-btn'>change avatar</button>
             </div> 
       <div  className='update'>
