@@ -1,10 +1,10 @@
 import axios from 'axios';
-// import React, { useState , useEffect} from 'react';
-// import { connect, useDispatch } from 'react-redux';
+import {getUser, getToken, setUserStorage, removeUserStorage} from '../../helpers/storageFunctions';
+
 const init = {
-    token: localStorage.getItem('token'),
+    token: getToken(),
     isAuthenticated:null,
-    user:null
+    user:getUser()
 };
 
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -52,6 +52,7 @@ export const logIn =(email,password) => async (dispatch)=>{
             type:LOGIN_SUCCESS,
             payload:res.data
         })
+        // console.log(res.data)
         console.log('user logged in')
     }catch(err){
         dispatch({
@@ -61,8 +62,8 @@ export const logIn =(email,password) => async (dispatch)=>{
 };
 
 export const authentication = () => async(dispatch) => {
-    if(localStorage.getItem('token')){
-        const tokenCheck = {jwt: localStorage.getItem('token')};
+    if(getToken){
+        const tokenCheck = {jwt: getToken()};
 
         try {
             if(tokenCheck.token !== null){
@@ -83,9 +84,10 @@ export const authentication = () => async(dispatch) => {
     }
 }
 
-export const logOut = () => (dispatch) => {
+export const logOut = ()=> (dispatch) =>{
     dispatch({
-        type:LOGOUT_USER
+        type:LOGOUT_USER,
+        payload:removeUserStorage()
     })
 }
 
@@ -98,21 +100,24 @@ const reducer = (state=init,action) => {
                 isAuthenticated:false
             }
         case LOGIN_SUCCESS:
-            localStorage.setItem('token', payload.jwt)
+            setUserStorage(payload.jwt,payload.user)
+            // localStorage.setItem('token', payload.jwt)
             // console.log('token')
+            // console.log(payload.user)
             return{
                 ...state,
                 isAuthenticated:true,
-                token:payload.jwt
-                // user:
-                
+                token:payload.jwt,
+                user:payload.ru,
+
             }
         case LOGIN_FAILED:
         case LOGOUT_USER:
-            localStorage.removeItem('token')
+            removeUserStorage()
             return{
                 ...state,
                 isAuthenticated:false,
+                token:null,
                 user:null 
             }
         case AUTHENTICATION_SUCCESS:

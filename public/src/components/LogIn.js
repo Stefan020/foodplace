@@ -3,7 +3,7 @@ import { connect, useDispatch } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 // import {loginAccount} from '../redux/ducks/accounts';
 import {logIn} from '../redux/ducks/auth';
-import {toggle} from './Navbar';
+import {setUserStorage} from '../helpers/storageFunctions';
 
 
 import '../assets/LogIn.css';
@@ -20,7 +20,8 @@ export const LogIn = (props) => {
     const handleLogin = (e) => {
         e.preventDefault()
         logIn(email,password)(dispatch);
-        props.history.push("/my-profile")
+        setUserStorage();
+        setTimeout(()=> props.history.push("/my-profile"), 200);
     }
 
     const {email, password} = loginData;
@@ -58,4 +59,4 @@ export const LogIn = (props) => {
     )
 }
 
-export default connect (null,logIn)(LogIn);
+export default LogIn;

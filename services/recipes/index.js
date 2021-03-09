@@ -19,7 +19,7 @@ api.use(jwt({
 }).unless({
     path: [
         { url: /\/api\/v1\/recipe\/.*\/star/, methods: ['PUT'] },
-        { url: /\/api\/v1\/recipe\/category\/.*\/cat/, method: ['GET']},
+        { url: /\/api\/v1\/recipe\/category\/.*/, method: ['GET']},
         { url: /\/api\/v1\/recipe\/.*/, method: ['GET']},
         { url: '/api/v1/recipe/most-stared', method: ['GET']},
         { url: '/api/v1/recipe/pub-date', methods: ['GET'] }

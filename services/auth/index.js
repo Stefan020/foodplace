@@ -28,7 +28,7 @@ api.use(function (err, req, res, next) {
 
 api.post('/api/v1/auth', auth.create);
 api.post('/api/v1/auth/login', auth.login);
-api.get('/api/v1/auth/user/:uid', auth.getUser);
+// api.get('/api/v1/auth/user/:uid', auth.getUser);
 
 api.listen(cfg.get('services').auth.port, err => {
     if(err){

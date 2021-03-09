@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import {getToken, removeUserStorage} from '../helpers/storageFunctions';
 import ROUTES from '../constants/routes';
 import '../assets/Navbar.css';
 import logo from '../assets/images/logo_color.svg';
 
-import {authentication,logOut} from '../redux/ducks/auth';
-
+import {authentication, logOut} from '../redux/ducks/auth';
+import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 // if(localStorage.getItem('token')){
@@ -14,7 +14,15 @@ import {useHistory} from 'react-router-dom';
 //     document.getElementById('toggleTwo').style='display:flex';
 // }
 
-export const Navbar = (logout) => {
+
+
+export const Navbar = () => {
+    const history = useHistory();
+    
+    const logingOut = () => {
+        logOut()
+        history.push('/login');
+    }
     
     return(
         
@@ -34,7 +42,8 @@ export const Navbar = (logout) => {
                         <Link to={ROUTES.DINNER} className='nav-cat'>dinner</Link>
                     </li>     
                 </ul>
-                <div className='nav-btn' id='toggleOne'>
+                {!getToken() ?
+                <div className='nav-btn'>
                 <Link to={ROUTES.LOGIN}>
                          <button className='loginbtn'>LOG IN</button>
                      </Link>
@@ -42,14 +51,16 @@ export const Navbar = (logout) => {
                      <Link to={ROUTES.CREATE_ACCOUNT}>
                         <button className='createbtn'> CREATE ACCOUNT</button>
                         </Link>
-                         <div className='toggleTwo' id='toggleTwo'>
+                        </div>
+                        :
+                         <div className='toggleTwo'>
                         <ul className='profileNav'>
-                            <li><Link to={ROUTES.MY_RECIPES}>my recipes</Link></li>
-                            <li><Link to={ROUTES.PROFILE}>my profile</Link></li>
-                            <li><Link to={ROUTES.ROOT} onClick={(e)=>e.logout}>log out</Link></li>
+                            <li className='toggle-li'><Link className='toggle-link-one' to={ROUTES.MY_RECIPES}>my recipes</Link></li>
+                            <li className='toggle-li'><Link className='toggle-link-two' to={ROUTES.PROFILE}>my profile</Link></li>
+                            <li className='toggle-li'><Link className='toggle-link-three' to={ROUTES.LOGIN} onClick={()=>logingOut}>log out</Link></li>
                         </ul>
                         </div> 
-                        </div>
+                    }
         </div>
     )
 }

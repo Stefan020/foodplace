@@ -5,16 +5,17 @@ import MyRecipesDiv from './MyRecipesDiv';
 import icon_trash from '../assets/images/icon_trashcan.svg';
 import { Link } from 'react-router-dom';
 import ROUTES from '../constants/routes';
+import plus from '../assets/images/icon_plus_white.svg';
 
 export const MyRecipes = (uid) => {
 
     const {data} = useFetch(`/api/v1/recipe/myrecipes/${uid}`)
 
     return(
-        <div className='myrecipes'>
+        <div className='my-recipes'>
             <div className="div-title">
             <h2 className="title">My Recipes</h2><hr className="hr-date"></hr>
-           <Link to={ROUTES.ADD_RECIPE}> <div className='plus'></div></Link>
+           <Link to={ROUTES.ADD_RECIPE}> <div className='plus'><img className='znak' src={plus} alt=""/></div></Link>
             </div>
           <div className='my'>
               

@@ -49,14 +49,14 @@ const login = async (req, res) => {
             let payload = {
                 uid: ru._id,
                 email: ru.email,
-                first_name: ru.first_name,
-                last_name: ru.last_name,
+                firstName: ru.firstName,
+                lastName: ru.lastName,
                 exp: (new Date().getTime() + (365 * 24 * 60 * 60 * 1000)) / 1000
             };
             let key = cfg.get('security').jwt_key;
             let token = jwt.sign(payload, key);
             console.log(token);
-            return res.status(200).send({jwt: token});
+            return res.status(200).send({user:ru, jwt: token});
         }
         return res.status(401).send('Unauthorized');
     } catch (err) {
@@ -65,12 +65,21 @@ const login = async (req, res) => {
     }
 };
 
-const getUser = async(req, res) => {
-    const uid = jwt.parse(req.params.token)
-    await console.log(rame, uid, req.params.token);
+// const getUser = async(req, res) => {
+//     const uid = jwt.parse(req.params.token)
+//     await console.log(rame, uid, req.params.token);
+//     try {
+//         let data = await usersModel.getOne({_id:req.params.uid})
+//         return res.status(200).send(data);
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(404).send('Internal Server Error');
+//     }
+// }
+
+const updateUser = async (req,res) => {
     try {
-        let data = await usersModel.getOne({_id:req.params.uid})
-        return res.status(200).send(data);
+        let u = await usersModel.updateUser({_id:req.params.uid}, )
     } catch (error) {
         console.log(error);
         return res.status(404).send('Internal Server Error');
@@ -80,5 +89,5 @@ const getUser = async(req, res) => {
 module.exports = {
     create,
     login,
-    getUser
+    // getUser
 };

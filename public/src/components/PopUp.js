@@ -4,10 +4,12 @@ import close from '../assets/images/icon_close.svg'
 import icon_time from '../assets/images/icon_time.svg';
 import icon_plate from '../assets/images/icon_plate.svg';
 import icon_star from '../assets/images/icon_star.svg';
+import ReactDOM from 'react-dom';
 
 
 export const PopUp = (props) => {
     return(props.data.triggered) ? (
+        <div className='blur'>
         <div className='popup'>
             <div className='popup-inner'>
                 <div className='popup-title-div'>
@@ -37,6 +39,7 @@ export const PopUp = (props) => {
                 </div>
                 {props.childredn}
             </div>
+        </div>
         </div>
     ) : "";
 }

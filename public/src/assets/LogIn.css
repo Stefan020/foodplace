@@ -35,6 +35,7 @@ hr{
     width: 100%;
     display: flex;
     flex-direction: row;
+    margin-bottom: 123px;
 }
 .left-login{
     width: 60%;

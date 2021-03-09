@@ -47,11 +47,20 @@
 }
 .image-avatar{
     border-radius: 50%;
-    width: 150px;
+    width: 123px;
+    height: 123px;
     margin-top: 140px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
+.avatar-btn::-webkit-file-upload-button {
+    visibility: hidden;
+    
+  }
 
+.avatar-btn::before{
+    -webkit-user-select: none;
+    content: 'change avatar';
+}
 .avatar-btn{
     top: 489px;
     left: 336px;
@@ -68,9 +77,9 @@
     letter-spacing: 0px;
     color: #A5A5A5;
     text-transform: uppercase;
-    opacity: 1;
     margin-top:30px;
-    
+    padding: 4px 28px;
+    border-radius: 5px;
 }
 
 .update{
@@ -79,8 +88,6 @@
 }
 
 .update-acc{
-    top: 632px;
-    left: 606px;
     width: 124px;
     height: 40px;
     background: var(--green) 0% 0% no-repeat padding-box;

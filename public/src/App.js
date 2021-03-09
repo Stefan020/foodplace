@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import {Navbar} from './components/Navbar';
-
+import ROUTES from './constants/routes';
 import './assets/App.css';
 import CreateAccount from './components/CreateAccount';
 import Home from './components/Home';
@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import {MyProfile} from './components/MyProfile';
 import {MyRecipes} from './components/MyRecipes';
 import {AddRecipe} from './components/AddRecipe';
+import {GetByCategory} from './components/GetByCategory';
+import {PrivateRoute} from './helpers/PrivateRoute';
 
 const App = () => {
   return (
@@ -20,11 +22,12 @@ const App = () => {
         <div className='switch'>
           <Switch>
             <Route exact path='/' component={Home} /> 
+            <Route path={ROUTES.CATEGORY} component={GetByCategory} />
             <Route path='/create-account' component={CreateAccount} />
-            <Route exact path='/login' component={LogIn} />
-            <Route exact path='/my-profile' component={MyProfile} />
-            <Route exact path='/my-recipes' component={MyRecipes} />
-            <Route exact path='/add-recipe' component={AddRecipe} />
+            <Route path='/login' component={LogIn} />
+            <PrivateRoute path='/my-profile' component={MyProfile} />
+            <PrivateRoute path='/my-recipes' component={MyRecipes} />
+            <PrivateRoute path='/add-recipe' component={AddRecipe} />
           </Switch>
           </div>
         </div>

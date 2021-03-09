@@ -3,6 +3,7 @@ const BREAKFAST = '/category/breakfast';
 const BRUNCH ='/category/brunch';
 const LUNCH ='/category/lunch';
 const DINNER ='/category/dinner';
+const CATEGORY = '/category/:cat'
 const LOGIN = '/login';
 const CREATE_ACCOUNT = '/create-account';
 const PROFILE = '/my-profile';
@@ -19,6 +20,7 @@ let routes = {
     CREATE_ACCOUNT,
     PROFILE,
     MY_RECIPES,
-    ADD_RECIPE
+    ADD_RECIPE,
+    CATEGORY
 }
  export default routes;

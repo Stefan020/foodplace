@@ -4,16 +4,13 @@ import icon_plate from '../assets/images/icon_plate.svg';
 import icon_star from '../assets/images/icon_star.svg';
 import icon_arrows_white from '../assets/images/icon_arrows_white.svg';
 import '../assets/Card.css';
-import {starRecipe} from '../redux/ducks/recipe'; 
-import {useStar} from './StarHook';
-import {useDispatch} from 'react-redux';
 import PopUp from './PopUp';
 
 
 const Card = ({ recipes }) => {
     const [recipe,setRecipe] = useState(recipes)
     const [popupData, setPopupData] = useState({});
-    const dispatch = useDispatch();
+  
  const starOne = (_id) => {
         fetch(`http://localhost:10002/api/v1/recipe/${_id}/star`,{
             method:"PUT",
