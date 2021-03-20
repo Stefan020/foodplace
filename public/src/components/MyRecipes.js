@@ -1,43 +1,93 @@
 import React, { useState , useEffect} from 'react';
-import useFetch from './FetchHook';
 import '../assets/MyRecipes.css';
-import MyRecipesDiv from './MyRecipesDiv';
 import icon_trash from '../assets/images/icon_trashcan.svg';
 import { Link } from 'react-router-dom';
 import ROUTES from '../constants/routes';
 import plus from '../assets/images/icon_plus_white.svg';
+import {getToken} from '../helpers/storageFunctions';
+import { useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom'
 
-export const MyRecipes = (uid) => {
+export const MyRecipes = () => {
+    const [myrecipes, setMyrecipes] = useState([]);
+    const token = getToken();
+    let dispatch = useDispatch();
+    let history = useHistory();
+    
+    useEffect(()=>{
+        fetch('http://localhost:10002/api/v1/recipe', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(res => {
+        if (!res.ok) {
+            throw Error('Cant fetch data!');
+        }
+        return res.json();
+    })
+    .then(data => {
+        setMyrecipes(data)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+},[])
 
-    const {data} = useFetch(`/api/v1/recipe/myrecipes/${uid}`)
 
+    const deleteRecipe = async(rid) => {
+          await fetch(`http://localhost:10002/api/v1/recipe/${rid}`, {
+                method:'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const newRecipes = myrecipes.filter((item)=> item._id !==rid);
+            console.log(newRecipes)
+            setMyrecipes([...newRecipes]);
+    };
+    const [prevData, setPrevData] = useState({})
+    const redirectToUpdate = (rid) => {
+        let prevData = myrecipes.filter((item)=> item._id === rid)[0]
+        setPrevData(prevData);
+        history.push(`update-recipe/${rid}`)
+    }
+
+    // console.log(myrecipes)
     return(
         <div className='my-recipes'>
             <div className="div-title">
             <h2 className="title">My Recipes</h2><hr className="hr-date"></hr>
            <Link to={ROUTES.ADD_RECIPE}> <div className='plus'><img className='znak' src={plus} alt=""/></div></Link>
             </div>
-          <div className='my'>
-              
-                <table>
-                    <tr className='head'>
+
+                <table className='my-recipes-table'>
+                    <thead>
+                    <tr className='tr'>
                         <th className='head1'>Recipe Name</th>
                         <th className='head2'>Category</th>
                         <th className='head3'>Created On</th>
                         <th className='head4'>Delete</th>
                     </tr>
-                    {data && data.map(recipe => (
-                    <tr  key={recipe._id}>
-                    <td>{recipe.title}</td>
-                    <td>{recipe.category}</td>
-                    <td>{recipe.date}</td>
-                    <td><img src={icon_trash}/></td>
-                    </tr>
-               
+                    </thead>
+                    <tbody>
+                    {myrecipes && myrecipes.map(recipe => (
+                    <tr key={recipe._id} className='trr'>
+                        {/* <Link className='tr' to={`recipes/${recipe._id}`}> */}
+                            <td className='my-recipe-title' onClick={()=>redirectToUpdate(recipe._id)}>{recipe.title}</td>
+                            <td className='my-recipe-cat'><div>{recipe.category}</div></td>
+                            <td className='my-recipe-date'>{new Date(recipe.pubDate).toLocaleDateString()}</td>
+                            <td className='my-recipe-del' onClick={()=>{deleteRecipe(recipe._id)}}><img src={icon_trash}/></td>
+                        {/* </Link> */}
+                    </tr>                    
               ))}
+              </tbody>
                </table>
+            
           </div>
-        </div>
+  
     )
 }
 

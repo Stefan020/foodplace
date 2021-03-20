@@ -8,6 +8,7 @@ const recipeSchema = {
     num_people:'required',
     description:'required',
     recipe: 'required',
+    // recipe_image:'requred'
 };
 
 const validate = async (data, schema) => {

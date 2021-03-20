@@ -27,7 +27,7 @@ export const register = (firstName,lastName,email,birthday,password,repeatPasswo
 
         dispatch({
             type:REGISTER_SUCCESS,
-            payload:res.data
+            payload:res
         })
     } catch (err) {
         dispatch({
@@ -42,8 +42,7 @@ export const logIn =(email,password) => async (dispatch)=>{
             'Content-Type':'application/json'
         }
     };
-    const body = {email,password};
-    console.log(body,config)
+    const body = {email,password}
     try{
         
         const res = await axios.post('http://localhost:10001/api/v1/auth/login', body, config)
@@ -60,6 +59,7 @@ export const logIn =(email,password) => async (dispatch)=>{
         });
     }
 };
+
 
 export const authentication = () => async(dispatch) => {
     if(getToken){
@@ -85,6 +85,7 @@ export const authentication = () => async(dispatch) => {
 }
 
 export const logOut = ()=> (dispatch) =>{
+    console.log('2')
     dispatch({
         type:LOGOUT_USER,
         payload:removeUserStorage()
@@ -101,9 +102,7 @@ const reducer = (state=init,action) => {
             }
         case LOGIN_SUCCESS:
             setUserStorage(payload.jwt,payload.user)
-            // localStorage.setItem('token', payload.jwt)
-            // console.log('token')
-            // console.log(payload.user)
+            window.location.href = '/my-profile'
             return{
                 ...state,
                 isAuthenticated:true,

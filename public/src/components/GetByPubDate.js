@@ -15,8 +15,8 @@ return(
         </div>
         <div className="date-div">
         <div className="recipes-date">
-             {error && <div>{error}</div>}
-            {isPending && <div>Loading...</div>}
+             {/* {error && <div>{error}</div>}
+            {isPending && <div>Loading...</div>} */}
             {data && <Card recipes={data} />} 
         </div>
         </div>

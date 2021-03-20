@@ -12,7 +12,7 @@ const cors =require('cors');
 const api = express();
 api.use(cors());
 api.use(bodyParser.json());
-api.use(bodyParser.urlencoded({ extended: false }));
+// api.use(bodyParser.urlencoded({ extended: false }));
 api.use(jwt({ 
     secret: cfg.get('security').jwt_key,
     algorithms: ['HS256']
@@ -30,13 +30,17 @@ api.use(function (err, req, res, next) {
         res.status(401).send('Bad JWT');
     }
 });
+
 api.get('/api/v1/recipe/most-stared', recipe.getByStars);
 api.get('/api/v1/recipe/category/:cat', recipe.getByCategory);
 api.get('/api/v1/recipe/pub-date', recipe.getByPubDate);
 api.get('/api/v1/recipe/:rid', recipe.getOne);
 api.put('/api/v1/recipe/:rid/star', recipe.starOne);
-api.get('/api/v1/recipe/myrecipes/:uid', recipe.getByUserId);
-api.post('/api/v1/recipe/newrecipe', recipe.save);
+api.get('/api/v1/recipe', recipe.getByUserId);
+api.post('/api/v1/recipe', recipe.save);
+api.put('/api/v1/recipe/:rid', recipe.updateRecipe);
+api.delete('/api/v1/recipe/:rid', recipe.removeRecipe);
+
 
 api.listen(cfg.get('services').recipe.port, err => {
     if(err){

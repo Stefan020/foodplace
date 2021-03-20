@@ -9,6 +9,7 @@ const CREATE_ACCOUNT = '/create-account';
 const PROFILE = '/my-profile';
 const MY_RECIPES = '/my-recipes';
 const ADD_RECIPE = '/add-recipe';
+const UPDATE_RECIPE = '/update-recipe';
 
 let routes = {
     ROOT,
@@ -21,6 +22,7 @@ let routes = {
     PROFILE,
     MY_RECIPES,
     ADD_RECIPE,
+    UPDATE_RECIPE,
     CATEGORY
 }
  export default routes;

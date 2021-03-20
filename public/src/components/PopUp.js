@@ -18,7 +18,9 @@ export const PopUp = (props) => {
                 </div>
                 <div className='popup-container'>
                 <div className='popup-left'>
-                    <div className='popup-img'></div>
+                    {/* <div className='popup-img'> */}
+                        <img className='popup-img' src={`http://localhost:10003/api/v1/storage/${props.data.recipe_image}`} />
+                            {/* </div> */}
                     <div className='popup-cat'>
                         <h5 className='cat-title'>Best Served For</h5>
                         <div className='green-cat'><p className='cat-p'>{props.data.category}</p></div>

@@ -6,7 +6,7 @@ import useFetch from './FetchHook';
 export const GetByCategory = () => {
     const { cat } = useParams();
     const [title, setTitle] = useState('');
-    const {data,isPending, error} = useFetch(`http://localhost:10002/api/v1/recipe/category/${cat}`)
+    const {data} = useFetch(`http://localhost:10002/api/v1/recipe/category/${cat}`)
     
     useEffect(()=>{
         pageTitle(cat);
@@ -35,8 +35,6 @@ export const GetByCategory = () => {
             <h2 className="title">{title}</h2><hr className="hr-date"></hr>
             </div>
             <div className="div-recipes-category">
-                {error && <div> {error} </div>}
-                {isPending && <div>Loading...</div>}
                 {data && <Card recipes={data} />}
             </div>
 

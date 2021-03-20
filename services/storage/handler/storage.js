@@ -1,8 +1,9 @@
 const fs = require('fs');
 const strings = require('../../../pkg/strings/index.js');
 
+
 const storeFile = async (req, res) => {
-  
+
     const allowedTypes = [
         'image/jpeg',
         'image/png',
@@ -18,7 +19,7 @@ const storeFile = async (req, res) => {
         return res.status(400).send('Bad Request: File Too Large');
     }
  
-    let userDir = `${__dirname}/../../../uploads`;
+    let userDir = `${__dirname}/../uploads`;
     console.log(userDir);
     if (!fs.existsSync(userDir)) {
         fs.mkdirSync(userDir);
@@ -34,11 +35,25 @@ const storeFile = async (req, res) => {
     res.status(201).send({
         filename: fileName
     });
-    console.log(fileName);
+    console.log('fileName', fileName);
+    
+    console.log(req.body, req.file);
+    res.status(200).send('try')
+};
+
+const getFile = (req, res) => {
+    let userDir = `${__dirname}/../uploads`
+    let fileName = req.params.fid;
+    let filePath = `${userDir}/${fileName}`;
+    
+    if (!fs.existsSync(filePath)) {
+        res.status(404).send('File Not Found');
+    }
+    res.download(filePath);
 };
 
 
-
 module.exports = {
-    storeFile
+    storeFile,
+    getFile
 };

@@ -8,7 +8,7 @@ const User = mongoose.model(
         email:String,
         birthday:Date,
         password:String,
-        image:String,
+        avatar:String,
         active:Boolean
     },
     'users'
@@ -36,7 +36,7 @@ const getOneForLogin = async (email) => {
     return data;
 };
 
-const updateUser = async(uid) => {
+const updateUser = async(uid, userData) => {
     let data = await User.updateOne({_id: uid}, userData);
     return data.nModified !== 0;
 }

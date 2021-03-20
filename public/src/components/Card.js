@@ -7,6 +7,7 @@ import '../assets/Card.css';
 import PopUp from './PopUp';
 
 
+
 const Card = ({ recipes }) => {
     const [recipe,setRecipe] = useState(recipes)
     const [popupData, setPopupData] = useState({});
@@ -19,7 +20,7 @@ const Card = ({ recipes }) => {
             }
         }).then(res=>res.json())
         .then(result=>{
-            const newRecipe = [...recipe];
+            const newRecipe = [...recipes];
             if(result){
                 newRecipe.forEach(element => {
                     if(element._id === _id) element.starCount ++;
@@ -33,19 +34,17 @@ const Card = ({ recipes }) => {
     }
 
     const onClickPopUp = (rid) => {
-        const popupData = recipe.filter((item)=> item._id === rid)[0];
+        const popupData = recipes.filter((item)=> item._id === rid)[0];
         popupData.triggered = true;
         setPopupData(popupData)
     }
     
+
     return (
         <div className="div-card">
             {recipes.map(recipe => (
-                
                     <div className="recipe-card" key={recipe._id}>
-                        <div className="card-img">
-                        <img src={recipe.image} alt="" />
-                        </div>
+                        <img className="card-img" src={`http://localhost:10003/api/v1/storage/${recipe.recipe_image}`} alt="" />
                     
                     <div className="card-container">
                         <h3 className="card-title">{recipe.title}</h3>

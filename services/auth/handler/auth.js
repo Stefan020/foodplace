@@ -65,21 +65,25 @@ const login = async (req, res) => {
     }
 };
 
-// const getUser = async(req, res) => {
-//     const uid = jwt.parse(req.params.token)
-//     await console.log(rame, uid, req.params.token);
-//     try {
-//         let data = await usersModel.getOne({_id:req.params.uid})
-//         return res.status(200).send(data);
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(404).send('Internal Server Error');
-//     }
-// }
+const getUser = async(req, res) => {
+    const uid = jwt.parse(req.params.token)
+    await console.log( uid, req.params.token);
+    try {
+        let data = await usersModel.getOne({_id:req.params.uid})
+        return res.status(200).send(data);
+    } catch (error) {
+        console.log(error);
+        return res.status(404).send('Internal Server Error');
+    }
+}
 
 const updateUser = async (req,res) => {
     try {
-        let u = await usersModel.updateUser({_id:req.params.uid}, )
+        let data = await usersModel.updateUser({_id:req.params.uid}, req.body)
+        if(data){
+            return res.status(200).send('User Updated');
+        }
+        return res.status(404).send('Not Found');
     } catch (error) {
         console.log(error);
         return res.status(404).send('Internal Server Error');
@@ -89,5 +93,6 @@ const updateUser = async (req,res) => {
 module.exports = {
     create,
     login,
-    // getUser
+    getUser,
+    updateUser
 };

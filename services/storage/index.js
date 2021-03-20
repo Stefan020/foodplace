@@ -1,5 +1,5 @@
 const cfg = require('../../pkg/config/index.js');
-
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('express-jwt');
@@ -8,14 +8,14 @@ const upload = require('express-fileupload');
 const storage = require('./handler/storage');
 
 const api = express();
-
+api.use(cors());
 api.use(bodyParser.json());
 api.use(jwt({
     secret: cfg.get('security').jwt_key,
     algorithms: ['HS256']
 }).unless({
     path: [
-        { url: /\/api\/v1\/storage\/public\/.*/, methods: ['GET'] }
+        { url: /\/api\/v1\/storage\/.*/, methods: ['GET'] }
     ]
 }));
 api.use(function (err, req, res, next) {
@@ -28,6 +28,7 @@ api.use(upload({
 }));
 
 api.post('/api/v1/storage', storage.storeFile);
+api.get('/api/v1/storage/:fid', storage.getFile);
 
 
 api.listen(cfg.get('services').storage.port, err => {

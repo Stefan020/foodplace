@@ -30,7 +30,6 @@
     background: transparent 0% 0% no-repeat padding-box;
     border-radius: 5px 5px 0px 0px;
     opacity: 1;
-    background: green;
     overflow: hidden;
 }
 
@@ -63,6 +62,8 @@
     color: #A5A5A5;
     opacity: 1;
     margin:15px 0;
+    display: flex;
+    flex-wrap: wrap;
     /* padding: 20px; */
 }
 

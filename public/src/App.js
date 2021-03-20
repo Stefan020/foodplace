@@ -10,7 +10,9 @@ import {MyProfile} from './components/MyProfile';
 import {MyRecipes} from './components/MyRecipes';
 import {AddRecipe} from './components/AddRecipe';
 import {GetByCategory} from './components/GetByCategory';
+import {UpdateRecipe} from './components/UpdateRecipe';
 import {PrivateRoute} from './helpers/PrivateRoute';
+
 
 const App = () => {
   return (
@@ -28,6 +30,7 @@ const App = () => {
             <PrivateRoute path='/my-profile' component={MyProfile} />
             <PrivateRoute path='/my-recipes' component={MyRecipes} />
             <PrivateRoute path='/add-recipe' component={AddRecipe} />
+            <PrivateRoute path='/update-recipe' component={UpdateRecipe} />
           </Switch>
           </div>
         </div>

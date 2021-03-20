@@ -20,8 +20,14 @@ export const CreateAccount = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        register(firstName,lastName,email,birthday,password,repeatPassword)(dispatch)
-        props.history.push("/login")
+        if(password === repeatPassword){
+            register(firstName,lastName,email,birthday,password,repeatPassword)(dispatch)
+            props.history.push("/login")
+        }else{
+            alert('Password and Repeat Password do not match!')
+        }
+        
+        
     }
     return(
         <div className='createAcc'>

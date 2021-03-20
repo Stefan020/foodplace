@@ -9,7 +9,7 @@ const Recipe = mongoose.model(
         num_people:Number,
         description:String,
         recipe:String,
-        image:String ,
+        recipe_image:String,
         uid:String,
         pubDate:Date,
         starCount:Number,
@@ -29,7 +29,7 @@ const getAll = async () => {
 };
 
 const getByPubDate = async() => {
-    let data = await Recipe.find({}).sort({pubDate:-1}).limit(3)
+    let data = await Recipe.find({ _deleted:false}).sort({pubDate:-1}).limit(3)
     return data;
 }
 
@@ -39,13 +39,13 @@ const getOne = async (rid) => {
 };
 
 const getByCategory = async (cat) => {
-    let data = await Recipe.find({ category:cat })
+    let data = await Recipe.find({ category:cat, _deleted:false })
     return data;
 };
 
 
 const getByUserId = async (uid) => {
-    let data = await Recipe.find({ userId:uid })
+    let data = await Recipe.find({ uid:uid , _deleted:false})
     return data;
 };
 
@@ -55,13 +55,18 @@ const updateStar = async( rid, recipeData) => {
 };
 
 const getByStars = async () => {
-    let data = await Recipe.find({}).sort({starCount:-1}).limit(6)
+    let data = await Recipe.find({ _deleted:false}).sort({starCount:-1}).limit(6)
     return data;
 }
 
+const update = async (rid, recipeData) => {
+        let data = await Recipe.updateOne({_id: rid}, recipeData)
+        return data.nModified !== 0;
+}
 
-const remove = async (id) => {
-    let data = await Recipe.updateOne({ _id: id }, {_deleted: true});
+
+const remove = async (rid) => {
+    let data = await Recipe.updateOne({ _id: rid}, {_deleted: true});
     return data.nModified !== 0;
 };
 
@@ -74,5 +79,6 @@ module.exports = {
     getByUserId,
     updateStar,
     getByStars,
-    remove
+    remove,
+    update
 };

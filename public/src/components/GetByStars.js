@@ -5,7 +5,7 @@ import Card from './Card';
 
 export const GetByStars = (props) => {
 
-    const {data,isPending, error} = useFetch('http://localhost:10002/api/v1/recipe/most-stared');
+    const {data} = useFetch('http://localhost:10002/api/v1/recipe/most-stared');
 
 return(
     <div className='mostStared'>
@@ -14,9 +14,7 @@ return(
         </div>
         <div className="date-div">
         <div className="recipes-date">
-             {error && <div>{error}</div>}
-            {isPending && <div>Loading...</div>}
-            {data && <Card recipes={data} />} 
+            {data && <Card recipes={data} />}  
         </div>
         </div>
     </div>

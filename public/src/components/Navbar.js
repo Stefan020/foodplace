@@ -18,10 +18,13 @@ import {useHistory} from 'react-router-dom';
 
 export const Navbar = () => {
     const history = useHistory();
-    
+    const dispatch = useDispatch();
+
     const logingOut = () => {
-        logOut()
-        history.push('/login');
+        console.log('1')
+        logOut()(dispatch)
+        // setTimeout(()=> history.push('/login'), 1000);
+        // history.push('/login');
     }
     
     return(
@@ -57,7 +60,7 @@ export const Navbar = () => {
                         <ul className='profileNav'>
                             <li className='toggle-li'><Link className='toggle-link-one' to={ROUTES.MY_RECIPES}>my recipes</Link></li>
                             <li className='toggle-li'><Link className='toggle-link-two' to={ROUTES.PROFILE}>my profile</Link></li>
-                            <li className='toggle-li'><Link className='toggle-link-three' to={ROUTES.LOGIN} onClick={()=>logingOut}>log out</Link></li>
+                            <li className='toggle-li'><Link className='toggle-link-three' to={ROUTES.LOGIN} onClick={logingOut}>log out</Link></li>
                         </ul>
                         </div> 
                     }

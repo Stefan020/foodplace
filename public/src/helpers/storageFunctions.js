@@ -1,11 +1,11 @@
 export const getUser = () => {
     const user = localStorage.getItem("user");
-    if(user) return JSON.parse(user);
-    else return null;
+    if(user != 'undefined') return JSON.parse(user);
+    else return '';
 }
 
 export const getToken = () => {
-    return localStorage.getItem("token") || null;
+    return localStorage.getItem("token") || '';
 }
 
 export const setUserStorage = (token, user) => {
