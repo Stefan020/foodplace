@@ -27,9 +27,9 @@ const save = async (req, res) => {
 };
 
 const getOne = async (req,res) => {
-    console.log(req.params)
+    console.log(req.params.rid)
     try{
-        let data = await recipeModel.getOne({_id: req.params.rid});
+        let data = await recipeModel.getOne( req.params.rid);
         return res.status(200).send(data);
     }catch(error){
         console.log(error);

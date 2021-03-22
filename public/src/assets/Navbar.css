@@ -40,6 +40,9 @@
     left: -12px;
 }
 
+.nav-li:first-child::before{
+    display: none;
+}
 
 .nav-cat{
     text-decoration: none;
@@ -155,6 +158,11 @@
     position: absolute;
     top:48px;
     margin-left:-15px;
+    /* margin:auto */
+}
+
+.toggle-li:first-child::before{
+    display: none;
 }
 
 .toggle-link-one{

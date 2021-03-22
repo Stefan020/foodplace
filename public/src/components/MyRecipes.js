@@ -48,10 +48,8 @@ export const MyRecipes = () => {
             console.log(newRecipes)
             setMyrecipes([...newRecipes]);
     };
-    const [prevData, setPrevData] = useState({})
+    // const [prevData, setPrevData] = useState({})
     const redirectToUpdate = (rid) => {
-        let prevData = myrecipes.filter((item)=> item._id === rid)[0]
-        setPrevData(prevData);
         history.push(`update-recipe/${rid}`)
     }
 
@@ -77,8 +75,8 @@ export const MyRecipes = () => {
                     <tr key={recipe._id} className='trr'>
                         {/* <Link className='tr' to={`recipes/${recipe._id}`}> */}
                             <td className='my-recipe-title' onClick={()=>redirectToUpdate(recipe._id)}>{recipe.title}</td>
-                            <td className='my-recipe-cat'><div>{recipe.category}</div></td>
-                            <td className='my-recipe-date'>{new Date(recipe.pubDate).toLocaleDateString()}</td>
+                            <td className='my-recipe-cat' onClick={()=>redirectToUpdate(recipe._id)}><div>{recipe.category}</div></td>
+                            <td className='my-recipe-date' onClick={()=>redirectToUpdate(recipe._id)}>{new Date(recipe.pubDate).toLocaleDateString()}</td>
                             <td className='my-recipe-del' onClick={()=>{deleteRecipe(recipe._id)}}><img src={icon_trash}/></td>
                         {/* </Link> */}
                     </tr>                    

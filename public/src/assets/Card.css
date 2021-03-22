@@ -22,7 +22,26 @@
     margin-bottom: 30px;
 }
 
+.image-ses{
+    width: 371px;
+    height: 220px; 
+    position: relative;
+}
 
+.card-cat{
+    float: left;
+    position: absolute;
+    /* z-index: 1; */
+    padding: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 10px 0 0 10px;
+    width: 85px;
+    height: 26px;
+    background: #96BB36 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+    text-align: center;
+}
 
 .card-img{
     width: 371px;
@@ -117,7 +136,7 @@
     opacity: 1;
 }
 .icon-right{
-    top: 665px;
+    /* top: 665px; */
     left: 1091px;
     width: 28px;
     height: 28px;
@@ -132,6 +151,7 @@
 
 .icon-right span{
     margin-left: 8px;
+    /* margin-bottom: 5px; */
 }
 
 .popup-btn{

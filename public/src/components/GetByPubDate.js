@@ -6,7 +6,7 @@ import useFetch from './FetchHook';
 
 export const GetByPubDate = (props) => {
 
-    const {data,isPending, error} = useFetch('http://localhost:10002/api/v1/recipe/pub-date')
+    const {data} = useFetch('http://localhost:10002/api/v1/recipe/pub-date')
 
 return(
     <div className='getByPubDate'>

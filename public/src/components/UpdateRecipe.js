@@ -10,36 +10,57 @@ import { useParams} from 'react-router-dom';
 export const UpdateRecipe = (props) => {
     const token = getToken();
     const dispatch = useDispatch();
-    const {rid} = useParams()
-    
+    let getRecipeId = ()=> {
+        const pathnames = window.location.pathname.split('/');
+        return pathnames[pathnames.length -1];
+    }
+    const rid = getRecipeId()
+    // const {data} = useFetch(`http://localhost:10002/api/v1/recipe/${rid}`)
+    // const {rid} = useParams();
 
-    const [updateRecipeData,setUpdateRecipeData] = useState({})
-
+    const [recipeData,setRecipeData] = useState({})
+    const [updateRecipeData,setUpdateRecipeData] = useState({
+        title:"",
+        category:"",
+        prep_time:"",
+        num_people:"",
+        description:"",
+        recipe:"",
+        recipe_image:""
+    })
     useEffect(()=>{
         fetchRecipeForUpdate()
     },[])
 
 
-    const fetchRecipeForUpdate = () => {
-        if(rid){
-            fetch(`http://localhost:10002/api/v1/recipe/${rid}`,{
-                
+    const fetchRecipeForUpdate = async() => {
+        console.log(rid)
+          await fetch(`http://localhost:10002/api/v1/recipe/${rid}`,{
                 method:'GET',
                 headers:{
-                'Authorization':`Bearer ${token}`
+                // 'Authorization':`Bearer ${token}`
+                'Content-Type':'application/json'
              },
-            })
-            .then(data=>{
-                setUpdateRecipeData(data)
-                console.log(updateRecipeData)
-            }).catch(err=>console.log(err))
-        }
+            }).then(res => 
+                 res.json())
+                .then(data => {
+                    // setRecipeData(data)
+                    setUpdateRecipeData(data)
+                    // console.log(data.filename)
+                }).catch(err => {
+                    console.log(err)
+                })
+        
     }
+    // console.log(recipeData.title)
 
+//     // 
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('');
     const[image, setImage] = useState(null);
     const convertBinaryImage = (e) => {
+        if(!e.target.files[0]) return;
+        setUpdateRecipeData({...updateRecipeData, recipe_image: ''})
         setFile(e.target.files[0])
         // console.log(file)
         let reader = new FileReader()
@@ -58,49 +79,60 @@ export const UpdateRecipe = (props) => {
 
       
 
-      const uploadImage =(img, token) => {
+      const uploadImage = async (img, token) => {
          return fetch(`http://localhost:10003/api/v1/storage`,{
              method:'POST',
              headers:{
                 'Authorization':`Bearer ${token}`
              },
              body:img
-         }).then(res => {
-             return res.json();
-         }).catch(err => {
-             console.log(err);
          })
      }
 
      
       const uploadFile = async () => {
+          if(!file){
+            updateRecipe(updateRecipeData)
+            return;
+          }
         let formData = new FormData();
         formData.append('document', file);
-        await uploadImage(formData, token)
-            .then(res => {
-                setFileName(res.filename);
-                updateRecipe(title, category, prep_time, num_people, description, recipe, res.filename)(dispatch)
-            })
+
+        uploadImage(formData, token).then(r =>  r.json()).then((res)=>{
+            setFileName(res.filename);
+            updateRecipe({...updateRecipeData, recipe_image:res.filename})
+        })
             .catch(err => {
                 console.log(err);
             });
       }
+     
 
-    // const [updateRecipeData,setUpdateRecipeData] = useState({
-    //     title:"",
-    //     category:"",
-    //     prep_time:"",
-    //     num_people:"",
-    //     description:"",
-    //     recipe:"",
-    //     recipe_image:""
-    // })
-
-    const {title, category, prep_time, num_people, description, recipe, recipe_image} = updateRecipeData;
+   const updateRecipe = async(updateRecipeData) => {
+       console.log(updateRecipeData, 1)
+       fetch(`http://localhost:10002/api/v1/recipe/${rid}`,{
+           method:'PUT',
+           headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+           },
+           body:JSON.stringify(updateRecipeData)
+       }).then(res => {
+           if(res){
+            setUpdateRecipeData(updateRecipeData)
+           }
+           
+       }).catch(err => {
+           console.log(err);
+       })
+   }
+    // console.log(updateRecipeData)
+    
+    // const {title, category, prep_time, num_people, description, recipe, recipe_image} = updateRecipeData;
     const handleUpdateRecipe = async(e) => {
         e.preventDefault()
-        await uploadFile()
-        props.history.push('/my-recipes');
+        uploadFile().then(
+        props.history.push('/my-recipes'));
     }
 
 
@@ -114,15 +146,15 @@ export const UpdateRecipe = (props) => {
             <div className='container-recipe'>    
              <div className='recipe-image'>   
                 <label className='label'>Recipe Image</label>
-                    <img src={image} className='image-recipe'></img>
-                    <input type='file' value={recipe_image} className='recipe-img-btn' onChange={(e) => convertBinaryImage(e)}></input>
+                     <img src={updateRecipeData.recipe_image ? `http://localhost:10003/api/v1/storage/${updateRecipeData.recipe_image}` : image || ''} className='image-recipe'></img> 
+                    <input type='file'   className='recipe-img-btn' onChange={(e) => convertBinaryImage(e)}></input> 
                 </div> 
                 <div className='recipe-center'>
                     <label className='label'>Recipe Title</label>
-                    <input type='text' value={title} onChange={(e) => setUpdateRecipeData({ ...updateRecipe, title: e.target.value })} className='input-recipe-title'></input>
+                    <input type='text' value={updateRecipeData.title} onChange={(e) => setUpdateRecipeData({ ...updateRecipeData, title: e.target.value })} className='input-recipe-title'></input>
                     <div className='center-middle'>
                    <span> <label className='label'>Category</label>
-                    <select className='input-category' placeholder='Category' value={category} onChange={(e) => setUpdateRecipeData({ ...updateRecipe, category: e.target.value })}>
+                    <select className='input-category' placeholder='Category' value={updateRecipeData.category} onChange={(e) => setUpdateRecipeData({ ...updateRecipeData, category: e.target.value })}>
                         
                         <option value="breakfast">Breakfast</option>
                         <option value="brunch">Brunch</option>
@@ -131,20 +163,20 @@ export const UpdateRecipe = (props) => {
                     </select></span>
                     <span>
                     <label className='label'>Preparation Time</label>
-                    <input type='number' className='prep-time-input' value={prep_time} onChange={(e) => setUpdateRecipeData({ ...updateRecipe, prep_time: e.target.value })}/>
+                    <input type='number' className='prep-time-input' value={updateRecipeData.prep_time} onChange={(e) => setUpdateRecipeData({ ...updateRecipeData, prep_time: e.target.value })}/>
                     </span>
                     <span>
                     <label className='label'>No.People</label>
-                    <input type='number' className='prep-time-input' value={num_people} onChange={(e) => setUpdateRecipeData({ ...updateRecipe, num_people: e.target.value })}/>
+                    <input type='number' className='prep-time-input' value={updateRecipeData.num_people} onChange={(e) => setUpdateRecipeData({ ...updateRecipeData, num_people: e.target.value })}/>
                     </span>
                     </div>
                     <label className='label'>Short Description</label>
-                    <textarea className='descr-text' value={description} onChange={(e) => setUpdateRecipeData({ ...updateRecipe, description: e.target.value })}></textarea>
+                    <textarea className='descr-text' value={updateRecipeData.description} onChange={(e) => setUpdateRecipeData({ ...updateRecipeData, description: e.target.value })}></textarea>
                     <input type="submit" value="SAVE" className='save-recipe'/>
                 </div>
                 <div className='right-recipe'>
                     <label className='label'>Recipe</label>
-                    <textarea className='recipe-text' value={recipe} onChange={(e) => setUpdateRecipeData({ ...updateRecipe, recipe: e.target.value })}>
+                    <textarea className='recipe-text' value={updateRecipeData.recipe} onChange={(e) => setUpdateRecipeData({ ...updateRecipeData, recipe: e.target.value })}>
                         
                     </textarea>
                 </div>    

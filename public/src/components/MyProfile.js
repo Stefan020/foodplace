@@ -4,15 +4,6 @@ import '../assets/MyProfile.css';
 import avatar from '../assets/images/avatar.png';
 // import { fetchUserRequest } from '../redux/ducks/user';
 import {getUser,getToken, setUserStorage} from '../helpers/storageFunctions';
-import ImageUploader from './ImageUploader';
-import e from 'cors';
-
-
-
-// const pageReload=()=>{
-//     window.location.reload();
-
-// }
 
 
 export const MyProfile = () => {
@@ -38,6 +29,8 @@ export const MyProfile = () => {
     const [file, setFile] = useState(null);
     const[image,setImage] = useState(null);
     const convertBinaryImage = (e) => {
+        if(!e.target.files[0]) return;
+        setUpdateData({...updateData, avatar: null})
         const file = e.target.files[0]
         setFile(file);
         console.log(file)
@@ -130,6 +123,8 @@ export const MyProfile = () => {
       }
     
 
+
+
     return(
         <div className='profile'>
         <div className="div-profile-title">
@@ -138,7 +133,7 @@ export const MyProfile = () => {
         <div className='profile-cont'>
         <form onSubmit={handleUpdateUser}>
             <div className='avatar'>
-            <img src={updateData.avatar? `http://localhost:10003/api/v1/storage/${updateData.avatar}` : image || avatar} className='image-avatar'/>
+            <img src={updateData.avatar ? `http://localhost:10003/api/v1/storage/${updateData.avatar}` : image || avatar} className='image-avatar'/>
             <input type='file' className='avatar-btn' onChange={(e) => convertBinaryImage(e)}></input>
             </div> 
             <div  className='update'>
