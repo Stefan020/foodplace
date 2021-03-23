@@ -2,7 +2,6 @@ import React, { useState , useEffect} from 'react';
 import ROUTES from '../constants/routes';
 import { Link } from 'react-router-dom';
 import picture from '../assets/images/pizza-placeholder.jpg';
-import ImageUploader from './ImageUploader';
 import back from '../assets/images/icon_back_white.svg';
 import '../assets/AddRecipe.css';
 import { getToken, getUser } from '../helpers/storageFunctions';
