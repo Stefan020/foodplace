@@ -77,17 +77,3 @@ export const CreateAccount = (props) => {
     )
 };
 export default CreateAccount;
-// const mapStateToProps = state => {
-//     return{
-//         account: state.account
-//     };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//     return{
-//         setSaveAccount: (account) => {dispatch(saveAccount(account))} 
-
-//     };
-// };
-
-// export default connect(mapStateToProps,mapDispatchToProps)(CreateAccount);

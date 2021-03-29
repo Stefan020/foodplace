@@ -1,5 +1,6 @@
 .my-recipes{
     width: 1250px;
+    min-height: 600px;
 }
 .plus{
     width: 41px;
