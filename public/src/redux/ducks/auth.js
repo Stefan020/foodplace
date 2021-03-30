@@ -85,7 +85,6 @@ export const authentication = () => async(dispatch) => {
 }
 
 export const logOut = ()=> (dispatch) =>{
-    console.log('2')
     dispatch({
         type:LOGOUT_USER,
         payload:removeUserStorage()
