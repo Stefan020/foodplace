@@ -6,7 +6,7 @@ import useFetch from './FetchHook';
 
 export const GetByPubDate = (props) => {
 
-    const {data} = useFetch('/api/v1/recipe/pub-date')
+    const {data} = useFetch(':10000/api/v1/recipe/pub-date')
 
 return(
     <div className='getByPubDate'>
